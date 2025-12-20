@@ -1,4 +1,4 @@
-// e_data.c
+// e_storage.c
 // handles saving of player data such as highscores
 // 
 // 
