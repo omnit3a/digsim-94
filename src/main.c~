@@ -1,0 +1,107 @@
+// main.c
+// <insert notes here>
+// 
+// 
+// created: 19/12/2025
+
+// standard library
+#include <stdio.h>
+#include <stdlib.h>
+
+// external libraries
+#include <raylib.h>
+
+// internal headers
+#include <e_storage.h>
+
+typedef enum game_screen_e {
+  LOGO,
+  TITLE,
+  GAMEPLAY,
+  ENDING
+} game_screen;
+
+int main (int argc, char ** argv) {
+  const int screen_width = 800;
+  const int screen_height = 450;
+  
+  InitWindow(screen_width, screen_height, "game");
+
+  game_screen current_screen = LOGO;
+  int frame_counter = 0;
+  SetTargetFPS(60);
+
+  int score = 0;
+  int high_score = 0;
+  
+  while (!WindowShouldClose()) {
+    switch (current_screen) {
+    case LOGO:
+      frame_counter++;
+
+      if (frame_counter >= 120) {
+	current_screen = TITLE;
+      }
+      break;
+      
+    case TITLE:
+      if (IsKeyPressed(KEY_ENTER)) {
+	current_screen = GAMEPLAY;
+      }
+      break;
+      
+    case GAMEPLAY:
+      if (IsKeyPressed(KEY_ENTER)) {
+	current_screen = ENDING;
+      }
+      break;
+      
+    case ENDING:
+      if (IsKeyPressed(KEY_ENTER)) {
+	current_screen = TITLE;
+      }
+      break;
+
+    default:
+      break;
+    }
+
+    BeginDrawing();
+
+    ClearBackground(BLACK);
+
+    switch (current_screen){
+    case LOGO:
+      DrawText("BDR GAMES", 20, 20, 40, RAYWHITE);
+      DrawText("Presents...", 20, 60, 20, RAYWHITE);
+      break;
+      
+    case TITLE:
+      DrawRectangle(0, 0, screen_width, screen_height, DARKBLUE);
+      DrawText("DIGSIM '94", 20, 20, 40, YELLOW);
+      DrawText(TextFormat("HIGH SCORE: %i", high_score), 20, 80, 20, YELLOW)
+      DrawText("Press Enter to start the game.", 20, 60, 20, YELLOW);
+      break;
+
+    case GAMEPLAY:
+      DrawRectangle(0, 0, screen_width, screen_height, PURPLE);
+      DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+      DrawText("Press Enter to end the game.", 20, 60, 20, MAROON);
+      break;
+
+    case ENDING:
+      DrawRectangle(0, 0, screen_width, screen_height, BLUE);
+      DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+      DrawText("Press Enter to go back to the title screen", 20, 60, 20, DARKBLUE);
+      break;
+
+    default:
+      break;      
+    }
+    
+    EndDrawing();
+  }
+
+  CloseWindow();
+  return 0;
+}
