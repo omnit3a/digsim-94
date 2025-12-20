@@ -1,10 +1,11 @@
 # digsim-94
-small mining game.
+small mining game using raylib.
 
 # build instructions
 ## dependencies
 - CMake
 - Make
+- raylib
 
 ## building
 - `cmake -B .` to generate makefile<br>
