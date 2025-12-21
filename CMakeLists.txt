@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11) # FetchContent is available in 3.11+
-project(game)
+project(digsim-94)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -25,6 +25,7 @@ endif()
 
 include_directories(include)
 add_executable(${PROJECT_NAME} src/main.c
+			       src/player.c
 			       src/e_storage.c
 			       src/e_render.c
 			       src/e_behaviour.c

@@ -10,7 +10,7 @@ out vec4 finalColor;
 void main() {
     vec4 texel = texture(texture0, fragTexCoord);
 
-    if (texel.rgb == vec3(0.0f, 1.0f, 0.0f))
+    if (texel.rgb == vec3(1.0f, 0.0f, 1.0f))
     {
     finalColor = vec4(0.0f, 0.0f, 0.0f, 0.0f);
     }

@@ -1,5 +1,5 @@
 // e_behaviour.c
-// <insert notes here>
+// handles interaction between the player and the game
 // 
 // 
 // created: 19/12/2025

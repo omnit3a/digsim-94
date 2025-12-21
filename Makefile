@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fostyr/Desktop/Code/C/game
+CMAKE_SOURCE_DIR = /home/fostyr/Desktop/Code/C/digsim-94
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fostyr/Desktop/Code/C/game
+CMAKE_BINARY_DIR = /home/fostyr/Desktop/Code/C/digsim-94
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/fostyr/Desktop/Code/C/game/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/fostyr/Desktop/Code/C/digsim-94/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -152,9 +152,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fostyr/Desktop/Code/C/game/CMakeFiles /home/fostyr/Desktop/Code/C/game//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fostyr/Desktop/Code/C/digsim-94/CMakeFiles /home/fostyr/Desktop/Code/C/digsim-94//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fostyr/Desktop/Code/C/game/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fostyr/Desktop/Code/C/digsim-94/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -182,17 +182,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named game
+# Target rules for targets named digsim-94
 
 # Build rule for target.
-game: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game
-.PHONY : game
+digsim-94: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 digsim-94
+.PHONY : digsim-94
 
 # fast build rule for target.
-game/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/build
-.PHONY : game/fast
+digsim-94/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/build
+.PHONY : digsim-94/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -251,7 +251,7 @@ src/e_behaviour.o: src/e_behaviour.c.o
 
 # target to build an object file
 src/e_behaviour.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_behaviour.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_behaviour.c.o
 .PHONY : src/e_behaviour.c.o
 
 src/e_behaviour.i: src/e_behaviour.c.i
@@ -259,7 +259,7 @@ src/e_behaviour.i: src/e_behaviour.c.i
 
 # target to preprocess a source file
 src/e_behaviour.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_behaviour.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_behaviour.c.i
 .PHONY : src/e_behaviour.c.i
 
 src/e_behaviour.s: src/e_behaviour.c.s
@@ -267,7 +267,7 @@ src/e_behaviour.s: src/e_behaviour.c.s
 
 # target to generate assembly for a file
 src/e_behaviour.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_behaviour.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_behaviour.c.s
 .PHONY : src/e_behaviour.c.s
 
 src/e_render.o: src/e_render.c.o
@@ -275,7 +275,7 @@ src/e_render.o: src/e_render.c.o
 
 # target to build an object file
 src/e_render.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_render.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_render.c.o
 .PHONY : src/e_render.c.o
 
 src/e_render.i: src/e_render.c.i
@@ -283,7 +283,7 @@ src/e_render.i: src/e_render.c.i
 
 # target to preprocess a source file
 src/e_render.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_render.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_render.c.i
 .PHONY : src/e_render.c.i
 
 src/e_render.s: src/e_render.c.s
@@ -291,7 +291,7 @@ src/e_render.s: src/e_render.c.s
 
 # target to generate assembly for a file
 src/e_render.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_render.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_render.c.s
 .PHONY : src/e_render.c.s
 
 src/e_storage.o: src/e_storage.c.o
@@ -299,7 +299,7 @@ src/e_storage.o: src/e_storage.c.o
 
 # target to build an object file
 src/e_storage.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_storage.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_storage.c.o
 .PHONY : src/e_storage.c.o
 
 src/e_storage.i: src/e_storage.c.i
@@ -307,7 +307,7 @@ src/e_storage.i: src/e_storage.c.i
 
 # target to preprocess a source file
 src/e_storage.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_storage.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_storage.c.i
 .PHONY : src/e_storage.c.i
 
 src/e_storage.s: src/e_storage.c.s
@@ -315,7 +315,7 @@ src/e_storage.s: src/e_storage.c.s
 
 # target to generate assembly for a file
 src/e_storage.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_storage.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_storage.c.s
 .PHONY : src/e_storage.c.s
 
 src/e_world.o: src/e_world.c.o
@@ -323,7 +323,7 @@ src/e_world.o: src/e_world.c.o
 
 # target to build an object file
 src/e_world.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_world.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_world.c.o
 .PHONY : src/e_world.c.o
 
 src/e_world.i: src/e_world.c.i
@@ -331,7 +331,7 @@ src/e_world.i: src/e_world.c.i
 
 # target to preprocess a source file
 src/e_world.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_world.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_world.c.i
 .PHONY : src/e_world.c.i
 
 src/e_world.s: src/e_world.c.s
@@ -339,7 +339,7 @@ src/e_world.s: src/e_world.c.s
 
 # target to generate assembly for a file
 src/e_world.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/e_world.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/e_world.c.s
 .PHONY : src/e_world.c.s
 
 src/main.o: src/main.c.o
@@ -347,7 +347,7 @@ src/main.o: src/main.c.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -355,7 +355,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -363,8 +363,32 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+src/player.o: src/player.c.o
+.PHONY : src/player.o
+
+# target to build an object file
+src/player.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/player.c.o
+.PHONY : src/player.c.o
+
+src/player.i: src/player.c.i
+.PHONY : src/player.i
+
+# target to preprocess a source file
+src/player.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/player.c.i
+.PHONY : src/player.c.i
+
+src/player.s: src/player.c.s
+.PHONY : src/player.s
+
+# target to generate assembly for a file
+src/player.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/digsim-94.dir/build.make CMakeFiles/digsim-94.dir/src/player.c.s
+.PHONY : src/player.c.s
 
 # Help Target
 help:
@@ -382,7 +406,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... update_mappings"
-	@echo "... game"
+	@echo "... digsim-94"
 	@echo "... glfw"
 	@echo "... raylib"
 	@echo "... src/e_behaviour.o"
@@ -400,6 +424,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/player.o"
+	@echo "... src/player.i"
+	@echo "... src/player.s"
 .PHONY : help
 
 

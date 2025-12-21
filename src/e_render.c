@@ -1,5 +1,5 @@
 // render.c
-// <insert notes here>
+// handles rendering
 // 
 // 
 // created: 19/12/2025
@@ -78,27 +78,40 @@ void e_render_main_loop (int current_screen) {
   EndDrawing();
 }
 
-void e_render_tile_from_atlas (int offset, int x_dest, int y_dest){
-  int x_index = (offset % TILE_ATLAS_WIDTH_IN_TILES) * 16;
-  int y_index = (offset / TILE_ATLAS_HEIGHT_IN_TILES) * 16;
+int round_up(int num_to_round, int multiple) {
+  int remainder = num_to_round % multiple;
+  if (multiple == 0 || remainder == 0) {
+    return num_to_round;
+  }
+
+  return num_to_round + multiple - remainder;
+}
+
+void e_render_tile_from_atlas (int offset, int x_dest, int y_dest){  
+  int x_index = (offset % TILE_ATLAS_WIDTH_IN_TILES) * TILE_WIDTH;
+  int y_index = (offset / TILE_ATLAS_HEIGHT_IN_TILES) * TILE_HEIGHT;
+
   Rectangle source_rect = {x_index, y_index, TILE_WIDTH, TILE_HEIGHT};
-  Rectangle dest_rect = {x_dest*(TILE_WIDTH * 4), y_dest*(TILE_HEIGHT * 4),
-			 x_dest+(TILE_WIDTH * 4), y_dest+(TILE_HEIGHT * 4)};
+
+  int scaled_tile_width = TILE_WIDTH * 4;
+  int scaled_tile_height = TILE_HEIGHT * 4;
+  
+  Rectangle dest_rect = {x_dest*scaled_tile_width, y_dest*scaled_tile_height,
+			 scaled_tile_width, scaled_tile_width};
   Vector2 origin = {0, 0};
 
-  DrawTexturePro(tile_atlas, source_rect, dest_rect, origin, 0, RAYWHITE);
+  DrawTexturePro(tile_atlas, source_rect, dest_rect, origin, 0, WHITE);
 }
 
 void e_render_gameplay (void) {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
-  //DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-  //DrawText("Press Q to enter the menu.", 20, 60, 20, MAROON);
+  
   BeginShaderMode(tile_shader);
   for (int y = 0 ; y < 16 ; y++) {
     for (int x = 0 ; x < 16 ; x++){
       int tile = e_world_get_tile_at_pos(x, y);
       e_render_tile_from_atlas(tile, x, y);
     }
-  }
+  }  
   EndShaderMode();
 }

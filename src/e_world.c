@@ -1,5 +1,5 @@
 // e_world.c
-// <insert notes here>
+// handles the world, including world generation and map modification
 // 
 // 
 // created: 20/12/2025
