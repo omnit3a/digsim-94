@@ -107,6 +107,8 @@ void e_render_gameplay (void) {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
   
   BeginShaderMode(tile_shader);
+
+  // TODO: differentiate between blocks and tiles + allow for multiple blocks on a single tile.
   for (int y = 0 ; y < 16 ; y++) {
     for (int x = 0 ; x < 16 ; x++){
       int tile = e_world_get_tile_at_pos(x, y);
