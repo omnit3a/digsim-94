@@ -10,7 +10,12 @@
 #define TILE_ATLAS_HEIGHT_IN_TILES 16
 #define TILE_WIDTH 16
 #define TILE_HEIGHT 16
+#define SCALED_TILE_WIDTH (TILE_WIDTH * 4)
+#define SCALED_TILE_HEIGHT (TILE_HEIGHT * 4)
 #define OPENGL_TILE_SHADER_PATH "assets/shaders/tile_shader.fs"
+
+#define VIEW_RADIUS 3
+#define VIEW_RADIUS_WITH_TORCH 5
 
 enum game_screen_e{
   LOGO,

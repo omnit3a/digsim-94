@@ -7,6 +7,8 @@
 // standard library
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
 
 // external libraries
 #include <raylib.h>
@@ -15,6 +17,7 @@
 #include <e_storage.h>
 #include <e_render.h>
 #include <e_world.h>
+#include <player.h>
 
 int render_score = 0;
 int render_high_score = 0;
@@ -78,26 +81,15 @@ void e_render_main_loop (int current_screen) {
   EndDrawing();
 }
 
-int round_up(int num_to_round, int multiple) {
-  int remainder = num_to_round % multiple;
-  if (multiple == 0 || remainder == 0) {
-    return num_to_round;
-  }
-
-  return num_to_round + multiple - remainder;
-}
-
 void e_render_tile_from_atlas (int offset, int x_dest, int y_dest){  
   int x_index = (offset % TILE_ATLAS_WIDTH_IN_TILES) * TILE_WIDTH;
   int y_index = (offset / TILE_ATLAS_HEIGHT_IN_TILES) * TILE_HEIGHT;
 
   Rectangle source_rect = {x_index, y_index, TILE_WIDTH, TILE_HEIGHT};
-
-  int scaled_tile_width = TILE_WIDTH * 4;
-  int scaled_tile_height = TILE_HEIGHT * 4;
   
-  Rectangle dest_rect = {x_dest*scaled_tile_width, y_dest*scaled_tile_height,
-			 scaled_tile_width, scaled_tile_width};
+  Rectangle dest_rect = {(x_dest*SCALED_TILE_WIDTH)+(SCALED_TILE_WIDTH/2),
+			 (y_dest*SCALED_TILE_HEIGHT)+(SCALED_TILE_HEIGHT/4),
+			 SCALED_TILE_WIDTH, SCALED_TILE_HEIGHT};
   Vector2 origin = {0, 0};
 
   DrawTexturePro(tile_atlas, source_rect, dest_rect, origin, 0, WHITE);
@@ -105,14 +97,23 @@ void e_render_tile_from_atlas (int offset, int x_dest, int y_dest){
 
 void e_render_gameplay (void) {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
-  
+    
   BeginShaderMode(tile_shader);
 
   // TODO: differentiate between blocks and tiles + allow for multiple blocks on a single tile.
-  for (int y = 0 ; y < 16 ; y++) {
-    for (int x = 0 ; x < 16 ; x++){
-      int tile = e_world_get_tile_at_pos(x, y);
-      e_render_tile_from_atlas(tile, x, y);
+  int x_pos = player_get_info().x_pos;
+  int y_pos = player_get_info().y_pos;
+
+  int x_view_min = fmax(0, x_pos - VIEW_RADIUS);
+  int x_view_max = fmin(15, x_pos + VIEW_RADIUS);
+  int y_view_min = fmax(0, y_pos - VIEW_RADIUS);
+  int y_view_max = fmin(15, y_pos + VIEW_RADIUS);
+  
+  for (int view_y = y_view_min ; view_y <= y_view_max ; view_y++) {
+    for (int view_x = x_view_min ; view_x <= x_view_max ; view_x++){
+      int tile = e_world_get_tile_at_pos(view_x, view_y);
+      
+      e_render_tile_from_atlas(tile, (view_x-x_pos) + VIEW_RADIUS + 1, (view_y-y_pos) + VIEW_RADIUS);
     }
   }  
   EndShaderMode();

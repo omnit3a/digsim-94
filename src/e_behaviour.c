@@ -7,6 +7,7 @@
 // standard library
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 // external libraries
 #include <raylib.h>
@@ -14,11 +15,12 @@
 // internal headers
 #include <e_storage.h>
 #include <e_behaviour.h>
+#include <e_render.h>
+#include <player.h>
 
 int score = 0;
 int high_score = 0;
 
-#include <e_render.h>
 
 void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
   int new_current_screen = *current_screen;
@@ -44,6 +46,8 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
     if (IsKeyPressed(KEY_Q)) {
       new_current_screen = MENU;
     }
+
+    e_behaviour_handle_player();
     break;
 
   case GAMEOVER:
@@ -73,4 +77,42 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
 
   *current_screen = new_current_screen;
   *frame_counter = new_frame_counter + 1;
+}
+
+void e_behaviour_handle_player (void) {
+  struct player_info_s new_player_info = player_get_info();
+  
+  if (IsKeyPressed(KEY_LEFT)) {
+    new_player_info.x_pos--;
+  }
+  
+  if (IsKeyPressed(KEY_RIGHT)) {
+    new_player_info.x_pos++;
+  }
+
+  if (IsKeyPressed(KEY_UP)) {
+    new_player_info.y_pos--;
+  }
+
+  if (IsKeyPressed(KEY_DOWN)) {
+    new_player_info.y_pos++;
+  }
+
+  if (new_player_info.x_pos < 0) {
+    new_player_info.x_pos = 0;
+  }
+
+  if (new_player_info.x_pos > 15) {
+    new_player_info.x_pos = 15;
+  }
+
+  if (new_player_info.y_pos < 0) {
+    new_player_info.y_pos = 0;
+  }
+
+  if (new_player_info.y_pos > 15) {
+    new_player_info.y_pos = 15;
+  }
+
+  player_set_info(new_player_info);
 }

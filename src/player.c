@@ -7,6 +7,7 @@
 // standard library
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // external libraries
 
@@ -14,18 +15,19 @@
 #include <player.h>
 
 struct player_info_s player_info = {
-  0,  // x_pos
-  0,  // y_pos
-  20, // health
-  0,  // score
-  1   // lvl
+  4,    // x_pos
+  4,    // y_pos
+  20,   // health
+  0,    // score
+  1,    // lvl
+  false // is_holding_torch
 };
 
 struct player_skills_s player_skills = {
   1, // mining
   1, // trading
   2, // attack
-  2, // defense
+  2  // defense
 };
 
 struct player_info_s player_get_info () {
