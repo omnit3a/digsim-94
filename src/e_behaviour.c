@@ -17,6 +17,7 @@
 #include <e_behaviour.h>
 #include <e_render.h>
 #include <e_world.h>
+#include <e_tile_definitions.h>
 #include <player.h>
 
 int score = 0;
@@ -32,13 +33,14 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
   switch (new_current_screen) {
   case LOGO:
     if (new_frame_counter >= 120){
-      high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);
+      high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);      
       new_current_screen = TITLE;
     }
     break;
 
   case TITLE:
     if (IsKeyPressed(KEY_ENTER)) {
+      e_world_generate_level();
       new_current_screen = GAMEPLAY;
     }
     break;
@@ -108,9 +110,6 @@ void e_behaviour_handle_player_movement (void) {
     new_player_info.y_facing = 1;
   }
   
-  /* int x_proposed = new_player_info.x_pos + new_player_info.x_facing; */
-  /* int y_proposed = new_player_info.y_pos + new_player_info.y_facing; */
-  
   if (e_world_get_tile_at_pos(new_player_info.x_pos, new_player_info.y_pos) > 0 ||
       IsKeyDown(KEY_LEFT_CONTROL)){
     new_player_info.x_pos = player_get_info().x_pos;
@@ -121,16 +120,16 @@ void e_behaviour_handle_player_movement (void) {
   if (new_player_info.x_pos < 0) {
     new_player_info.x_pos = 0;
     new_player_info.x_facing = 0;
-  } else if (new_player_info.x_pos > 15) {
-    new_player_info.x_pos = 15;
+  } else if (new_player_info.x_pos >= MAP_WIDTH-1) {
+    new_player_info.x_pos = MAP_WIDTH-1;
     new_player_info.x_facing = 0;
   }
 
   if (new_player_info.y_pos < 0) {
     new_player_info.y_pos = 0;
     new_player_info.y_facing = 0;
-  } else if (new_player_info.y_pos > 15) {
-    new_player_info.y_pos = 15;
+  } else if (new_player_info.y_pos >= MAP_LENGTH-1) {
+    new_player_info.y_pos = MAP_LENGTH-1;
     new_player_info.y_facing = 0;
   }
 
@@ -143,7 +142,9 @@ void e_behaviour_handle_player_actions (void) {
   int facing_y_pos = new_player_info.y_pos + new_player_info.y_facing;
   int facing_tile = e_world_get_tile_at_pos(facing_x_pos, facing_y_pos);
 
-  if (IsKeyPressed(KEY_PERIOD) && facing_tile > 0) {
+  bool facing_tile_indestructible = e_tile_def_get_tile_properties(facing_tile).health == -1;
+  
+  if (IsKeyPressed(KEY_PERIOD) && facing_tile > 0 && !facing_tile_indestructible) {
     e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, 0);
   }
 }

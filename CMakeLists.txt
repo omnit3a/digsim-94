@@ -29,7 +29,8 @@ add_executable(${PROJECT_NAME} src/main.c
 			       src/e_storage.c
 			       src/e_render.c
 			       src/e_behaviour.c
-			       src/e_world.c)
+			       src/e_world.c
+			       src/e_tile_definitions.c)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 

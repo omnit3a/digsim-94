@@ -17,6 +17,7 @@
 #include <e_storage.h>
 #include <e_render.h>
 #include <e_world.h>
+#include <e_tile_definitions.h>
 #include <player.h>
 
 int render_score = 0;
@@ -86,7 +87,7 @@ void e_render_main_loop (int current_screen) {
 
 void e_render_tile_from_atlas (Texture2D texture, int offset, int x_dest, int y_dest){  
   int x_index = (offset % TILE_ATLAS_WIDTH_IN_TILES) * TILE_WIDTH;
-  int y_index = (offset / TILE_ATLAS_HEIGHT_IN_TILES) * TILE_HEIGHT;
+  int y_index = (offset / TILE_ATLAS_WIDTH_IN_TILES) * TILE_HEIGHT;
 
   Rectangle source_rect = {x_index, y_index, TILE_WIDTH, TILE_HEIGHT};
   
@@ -111,14 +112,19 @@ void e_render_gameplay (void) {
 
   // get visible area
   int x_view_min = fmax(0, x_pos - VIEW_RADIUS);
-  int x_view_max = fmin(15, x_pos + VIEW_RADIUS);
+  int x_view_max = fmin(MAP_WIDTH, x_pos + VIEW_RADIUS);
   int y_view_min = fmax(0, y_pos - VIEW_RADIUS);
-  int y_view_max = fmin(15, y_pos + VIEW_RADIUS);
+  int y_view_max = fmin(MAP_LENGTH, y_pos + VIEW_RADIUS);
 
   // render visible area
   for (int view_y = y_view_min ; view_y <= y_view_max ; view_y++) {
     for (int view_x = x_view_min ; view_x <= x_view_max ; view_x++){
+      if (view_x == MAP_WIDTH || view_y == MAP_LENGTH) {
+	break;
+      }
+      
       int tile = e_world_get_tile_at_pos(view_x, view_y);
+      tile = e_tile_def_get_tile_properties(tile).atlas_offset;
       
       e_render_tile_from_atlas(tile_atlas,
 			       tile,
@@ -135,7 +141,7 @@ void e_render_gameplay (void) {
     EndShaderMode();
     return;
   }
-  
+
   if (e_world_get_tile_at_pos(x_pos+x_facing, y_pos+y_facing) > 0) {
     e_render_tile_from_atlas(player_sprite, 4, 4+x_facing, 3+y_facing);
   } else {
