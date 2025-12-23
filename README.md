@@ -13,4 +13,6 @@ small mining game using raylib.
 
 # running
 ## controls
-when in game, `q` may be pressed to pause the game and go to the menu.
+`arrow keys` move the player around<br>
+`left-ctrl + arrow keys` rotates the player to face the specified direction<br>
+`.` mines blocks
