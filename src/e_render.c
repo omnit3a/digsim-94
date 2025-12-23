@@ -92,7 +92,7 @@ void e_render_tile_from_atlas (Texture2D texture, int offset, int x_dest, int y_
   Rectangle source_rect = {x_index, y_index, TILE_WIDTH, TILE_HEIGHT};
   
   Rectangle dest_rect = {(x_dest*SCALED_TILE_WIDTH)+(SCALED_TILE_WIDTH/2),
-			 (y_dest*SCALED_TILE_HEIGHT)+(SCALED_TILE_HEIGHT/4),
+			 (y_dest*SCALED_TILE_HEIGHT)+(SCALED_TILE_HEIGHT/2),
 			 SCALED_TILE_WIDTH, SCALED_TILE_HEIGHT};
   Vector2 origin = {0, 0};
 
@@ -135,13 +135,13 @@ void e_render_gameplay (void) {
 
   // render player sprite
   e_render_tile_from_atlas(player_sprite, 0, 4, 3);
-  // render block highlighter
 
   if (x_facing + y_facing == 0) {
     EndShaderMode();
     return;
   }
 
+  // render highlighted block 
   if (e_world_get_tile_at_pos(x_pos+x_facing, y_pos+y_facing) > 0) {
     e_render_tile_from_atlas(player_sprite, 4, 4+x_facing, 3+y_facing);
   } else {
@@ -149,4 +149,22 @@ void e_render_gameplay (void) {
   }
     
   EndShaderMode();
+
+  DrawText(TextFormat("HP: %i", player_get_info().health),
+	   10, 10, 20, WHITE);
+  DrawText(TextFormat("LVL: %i", player_get_info().lvl),
+	   10, 30, 20, WHITE);
+  DrawText(TextFormat("SCORE: %i", player_get_info().score),
+	   (SCREEN_WIDTH/2)-40, 10, 20, WHITE);
+  DrawText(TextFormat("MINE: %i", player_get_skills().mining),
+	   SCREEN_WIDTH-80, 10, 20, WHITE);
+  DrawText(TextFormat("SELL: %i", player_get_skills().trading),
+	   SCREEN_WIDTH-80, 30, 20, WHITE);
+  DrawText(TextFormat("ATK: %i", player_get_skills().attack),
+	   SCREEN_WIDTH-80, 50, 20, WHITE);
+  DrawText(TextFormat("DEF: %i", player_get_skills().defense),
+	   SCREEN_WIDTH-80, 70, 20, WHITE);
+
+  DrawText("Q: MENU", 10, SCREEN_HEIGHT - 30, 20, WHITE);
+
 }

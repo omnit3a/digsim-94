@@ -20,7 +20,6 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     FetchContent_MakeAvailable(raylib)
   endif()
 endif()
-
 # Our Project
 
 include_directories(include)
