@@ -7,6 +7,7 @@
 #define WINDOW_TITLE "digsim '94"
 #define TILE_ATLAS_PATH "assets/tiles.png"
 #define PLAYER_SPRITESHEET_PATH "assets/player.png"
+#define FONT_PATH "assets/vga.ttf"
 #define TILE_ATLAS_WIDTH_IN_TILES 16
 #define TILE_ATLAS_HEIGHT_IN_TILES 16
 #define TILE_WIDTH 16

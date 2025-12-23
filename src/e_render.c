@@ -25,6 +25,7 @@ int render_high_score = 0;
 Texture2D tile_atlas;
 Texture2D player_sprite;
 Shader tile_shader;
+Font font;
 
 void e_render_init (void) {
   render_high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);
@@ -32,6 +33,8 @@ void e_render_init (void) {
   tile_atlas = LoadTexture(TILE_ATLAS_PATH);
   player_sprite = LoadTexture(PLAYER_SPRITESHEET_PATH);
   tile_shader = LoadShader(0, OPENGL_TILE_SHADER_PATH);
+  font = LoadFontEx(FONT_PATH, 32, 0, 256);
+  SetTextLineSpacing(1);
   SetTargetFPS(60);
 }
 
@@ -48,16 +51,16 @@ void e_render_main_loop (int current_screen) {
 
   switch (current_screen){
     case LOGO:
-      DrawText("BDR GAMES", 20, 20, 40, RAYWHITE);
-      DrawText("Presents...", 20, 60, 20, RAYWHITE);
+      DrawTextEx(font, "BDR GAMES", (Vector2){20, 20}, 48, 2, RAYWHITE);
+      DrawTextEx(font, "PRESENTS...", (Vector2){20, 68}, (float)font.baseSize, 2, RAYWHITE);
       break;
       
     case TITLE:
       DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, DARKBLUE);
-      DrawText("DIGSIM '94", 20, 20, 40, YELLOW);
-      DrawText(TextFormat("HIGH SCORE: %i", render_high_score), 20, 70, 20, YELLOW);
-      DrawText("Press Enter to start the game.", 20, 100, 20, YELLOW);
-      DrawText("[Escape] -> Exit the game", 20, 120, 20, YELLOW);
+      DrawTextEx(font, "DIGSIM '94", (Vector2){20, 20}, 48, 2, YELLOW);
+      DrawTextEx(font, TextFormat("HIGH SCORE: %i", render_high_score), (Vector2){20, 68}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "PRESS ENTER TO START", (Vector2){20, 100}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "ESCAPE TO EXIT", (Vector2){20, 132}, (float)font.baseSize, 2, YELLOW);
       break;
       
   case GAMEPLAY:
@@ -66,16 +69,17 @@ void e_render_main_loop (int current_screen) {
       
   case GAMEOVER:
       DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, RED);
-      DrawText("You are dead.", 20, 20, 40, WHITE);
-      DrawText("Press Enter to save and return to the title screen.", 20, 60, 20, WHITE);
+      DrawTextEx(font, "You are dead.", (Vector2){20, 20}, 48, 2, WHITE);
+      DrawTextEx(font, "Press Enter to save and return to the title screen.",
+		 (Vector2){20, 68}, (float)font.baseSize, 2, WHITE);
       break;
       
   case MENU:
       DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, DARKBLUE);
-      DrawText("MENU", 20, 20, 40, YELLOW);
-      DrawText(TextFormat("SCORE: %i", render_score), 20, 70, 20, YELLOW);
-      DrawText("Q: Resume game", 20, 100, 20, YELLOW);
-      DrawText("T: Save and return to title", 20, 120, 20, YELLOW);
+      DrawTextEx(font, "MENU", (Vector2){20, 20}, 48, 2, YELLOW);
+      DrawTextEx(font, TextFormat("SCORE: %i", render_score), (Vector2){20, 68}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "Q: RESUME GAME", (Vector2){20, 100}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "T: SAVE AND RETURN TO TITLE", (Vector2){20, 132}, (float)font.baseSize, 2, YELLOW);
       break;
       
   default:
@@ -150,21 +154,21 @@ void e_render_gameplay (void) {
     
   EndShaderMode();
 
-  DrawText(TextFormat("HP: %i", player_get_info().health),
-	   10, 10, 20, WHITE);
-  DrawText(TextFormat("LVL: %i", player_get_info().lvl),
-	   10, 30, 20, WHITE);
-  DrawText(TextFormat("SCORE: %i", player_get_info().score),
-	   (SCREEN_WIDTH/2)-40, 10, 20, WHITE);
-  DrawText(TextFormat("MINE: %i", player_get_skills().mining),
-	   SCREEN_WIDTH-80, 10, 20, WHITE);
-  DrawText(TextFormat("SELL: %i", player_get_skills().trading),
-	   SCREEN_WIDTH-80, 30, 20, WHITE);
-  DrawText(TextFormat("ATK: %i", player_get_skills().attack),
-	   SCREEN_WIDTH-80, 50, 20, WHITE);
-  DrawText(TextFormat("DEF: %i", player_get_skills().defense),
-	   SCREEN_WIDTH-80, 70, 20, WHITE);
+  DrawTextEx(font, TextFormat("HP: %i", player_get_info().health),
+	     (Vector2){10, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("LVL: %i", player_get_info().lvl),
+	     (Vector2){10, 26}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("SCORE: %i", player_get_info().score),
+	     (Vector2){(SCREEN_WIDTH/2)-40, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("MINE: %i", player_get_skills().mining),
+	     (Vector2){SCREEN_WIDTH-80, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("SELL: %i", player_get_skills().trading),
+	     (Vector2){SCREEN_WIDTH-80, 26}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("ATK: %i", player_get_skills().attack),
+	     (Vector2){SCREEN_WIDTH-80, 42}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("DEF: %i", player_get_skills().defense),
+	     (Vector2){SCREEN_WIDTH-80, 58}, 16, 2, WHITE);
 
-  DrawText("Q: MENU", 10, SCREEN_HEIGHT - 30, 20, WHITE);
+  DrawTextEx(font, "Q: MENU", (Vector2){10, SCREEN_HEIGHT - 26}, 16, 2, WHITE);
 
 }
