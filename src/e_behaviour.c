@@ -16,6 +16,7 @@
 #include <e_storage.h>
 #include <e_behaviour.h>
 #include <e_render.h>
+#include <e_world.h>
 #include <player.h>
 
 int score = 0;
@@ -47,7 +48,8 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
       new_current_screen = MENU;
     }
 
-    e_behaviour_handle_player();
+    e_behaviour_handle_player_movement();
+    e_behaviour_handle_player_actions();
     break;
 
   case GAMEOVER:
@@ -79,40 +81,69 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
   *frame_counter = new_frame_counter + 1;
 }
 
-void e_behaviour_handle_player (void) {
+void e_behaviour_handle_player_movement (void) {
   struct player_info_s new_player_info = player_get_info();
   
   if (IsKeyPressed(KEY_LEFT)) {
     new_player_info.x_pos--;
+    new_player_info.x_facing = -1;
+    new_player_info.y_facing = 0;
   }
   
   if (IsKeyPressed(KEY_RIGHT)) {
     new_player_info.x_pos++;
+    new_player_info.x_facing = 1;
+    new_player_info.y_facing = 0;
   }
 
   if (IsKeyPressed(KEY_UP)) {
     new_player_info.y_pos--;
+    new_player_info.x_facing = 0;
+    new_player_info.y_facing = -1;
   }
 
   if (IsKeyPressed(KEY_DOWN)) {
     new_player_info.y_pos++;
+    new_player_info.x_facing = 0;
+    new_player_info.y_facing = 1;
   }
-
+  
+  /* int x_proposed = new_player_info.x_pos + new_player_info.x_facing; */
+  /* int y_proposed = new_player_info.y_pos + new_player_info.y_facing; */
+  
+  if (e_world_get_tile_at_pos(new_player_info.x_pos, new_player_info.y_pos) > 0 ||
+      IsKeyDown(KEY_LEFT_CONTROL)){
+    new_player_info.x_pos = player_get_info().x_pos;
+    new_player_info.y_pos = player_get_info().y_pos;
+  }
+  
+  // disallow player from exiting level
   if (new_player_info.x_pos < 0) {
     new_player_info.x_pos = 0;
-  }
-
-  if (new_player_info.x_pos > 15) {
+    new_player_info.x_facing = 0;
+  } else if (new_player_info.x_pos > 15) {
     new_player_info.x_pos = 15;
+    new_player_info.x_facing = 0;
   }
 
   if (new_player_info.y_pos < 0) {
     new_player_info.y_pos = 0;
-  }
-
-  if (new_player_info.y_pos > 15) {
+    new_player_info.y_facing = 0;
+  } else if (new_player_info.y_pos > 15) {
     new_player_info.y_pos = 15;
+    new_player_info.y_facing = 0;
   }
 
   player_set_info(new_player_info);
+}
+
+void e_behaviour_handle_player_actions (void) {
+  struct player_info_s new_player_info = player_get_info();
+  int facing_x_pos = new_player_info.x_pos + new_player_info.x_facing;
+  int facing_y_pos = new_player_info.y_pos + new_player_info.y_facing;
+  int facing_tile = e_world_get_tile_at_pos(facing_x_pos, facing_y_pos);
+
+  if (IsKeyPressed(KEY_PERIOD) && facing_tile > 0) {
+    e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, 0);
+  }
 }

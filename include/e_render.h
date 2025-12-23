@@ -6,6 +6,7 @@
 
 #define WINDOW_TITLE "digsim '94"
 #define TILE_ATLAS_PATH "assets/tiles.png"
+#define PLAYER_SPRITESHEET_PATH "assets/player.png"
 #define TILE_ATLAS_WIDTH_IN_TILES 16
 #define TILE_ATLAS_HEIGHT_IN_TILES 16
 #define TILE_WIDTH 16
@@ -16,6 +17,8 @@
 
 #define VIEW_RADIUS 3
 #define VIEW_RADIUS_WITH_TORCH 5
+
+#include <raylib.h>
 
 enum game_screen_e{
   LOGO,
@@ -30,7 +33,7 @@ void e_render_shutdown (void);
 
 void e_render_main_loop (int current_screen);
 
-void e_render_tile_from_atlas (int offset, int x_dest, int y_dest);
+void e_render_tile_from_atlas (Texture2D texture, int offset, int x_dest, int y_dest);
 void e_render_gameplay (void);
 
 

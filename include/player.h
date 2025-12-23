@@ -6,6 +6,8 @@
 struct player_info_s {
   int x_pos;
   int y_pos;
+  int x_facing;
+  int y_facing;
   int health;
   int score;
   int lvl;

@@ -17,6 +17,8 @@
 struct player_info_s player_info = {
   4,    // x_pos
   4,    // y_pos
+  0,    // x_facing
+  0,    // y_facing
   20,   // health
   0,    // score
   1,    // lvl
