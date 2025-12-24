@@ -7,6 +7,9 @@
 // standard library
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 // external libraries
 #include <raylib.h>
@@ -19,10 +22,16 @@
 int current_screen = LOGO;
 
 int main (int argc, char ** argv){
-  int frame_counter = 0;
+  DIR * data_dir = opendir("data");
+  
+  // if 'data/' directory doesnt exist, create it
+  if (ENOENT == errno) {
+    if (!mkdir("data", 0777)){
+      printf("INFO: FILEIO: [data/] Directory created successfully\n");
+    }
+  }
 
-  //int score = 0;
-  //int high_score = 0;
+  int frame_counter = 0;
 
   e_render_init();
   

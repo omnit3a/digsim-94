@@ -31,6 +31,7 @@ enum game_screen_e{
 
 void e_render_init (void);
 void e_render_shutdown (void);
+void e_render_update_score (void);
 
 void e_render_main_loop (int current_screen);
 

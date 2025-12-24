@@ -27,7 +27,7 @@ Texture2D player_sprite;
 Shader tile_shader;
 Font font;
 
-void e_render_init (void) {
+void e_render_init (void) {  
   render_high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
   tile_atlas = LoadTexture(TILE_ATLAS_PATH);
@@ -43,6 +43,11 @@ void e_render_shutdown (void) {
   UnloadTexture(player_sprite);
   UnloadTexture(tile_atlas);
   CloseWindow();
+}
+
+void e_render_update_score (void) {
+  render_score = player_get_info().score;
+  render_high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);
 }
 
 void e_render_main_loop (int current_screen) {
@@ -78,8 +83,8 @@ void e_render_main_loop (int current_screen) {
       DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, DARKBLUE);
       DrawTextEx(font, "MENU", (Vector2){20, 20}, 48, 2, YELLOW);
       DrawTextEx(font, TextFormat("SCORE: %i", render_score), (Vector2){20, 68}, (float)font.baseSize, 2, YELLOW);
-      DrawTextEx(font, "Q: RESUME GAME", (Vector2){20, 100}, (float)font.baseSize, 2, YELLOW);
-      DrawTextEx(font, "T: SAVE AND RETURN TO TITLE", (Vector2){20, 132}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "ESC: RESUME GAME", (Vector2){20, 100}, (float)font.baseSize, 2, YELLOW);
+      DrawTextEx(font, "Q: SAVE AND RETURN TO TITLE", (Vector2){20, 132}, (float)font.baseSize, 2, YELLOW);
       break;
       
   default:
@@ -105,7 +110,23 @@ void e_render_tile_from_atlas (Texture2D texture, int offset, int x_dest, int y_
 
 void e_render_gameplay (void) {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
-    
+
+  DrawTextEx(font, TextFormat("HP: %i", player_get_info().health),
+	     (Vector2){10, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("LVL: %i", player_get_info().lvl),
+	     (Vector2){10, 26}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("SCORE: %i", player_get_info().score),
+	     (Vector2){(SCREEN_WIDTH/2)-40, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("MINE: %i", player_get_skills().mining),
+	     (Vector2){SCREEN_WIDTH-80, 10}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("SELL: %i", player_get_skills().trading),
+	     (Vector2){SCREEN_WIDTH-80, 26}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("ATK: %i", player_get_skills().attack),
+	     (Vector2){SCREEN_WIDTH-80, 42}, 16, 2, WHITE);
+  DrawTextEx(font, TextFormat("DEF: %i", player_get_skills().defense),
+	     (Vector2){SCREEN_WIDTH-80, 58}, 16, 2, WHITE);
+  DrawTextEx(font, "Q: MENU", (Vector2){10, SCREEN_HEIGHT - 26}, 16, 2, WHITE);
+
   BeginShaderMode(tile_shader);
 
   // TODO: differentiate between blocks and tiles + allow for multiple blocks on a single tile.
@@ -153,22 +174,4 @@ void e_render_gameplay (void) {
   }
     
   EndShaderMode();
-
-  DrawTextEx(font, TextFormat("HP: %i", player_get_info().health),
-	     (Vector2){10, 10}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("LVL: %i", player_get_info().lvl),
-	     (Vector2){10, 26}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("SCORE: %i", player_get_info().score),
-	     (Vector2){(SCREEN_WIDTH/2)-40, 10}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("MINE: %i", player_get_skills().mining),
-	     (Vector2){SCREEN_WIDTH-80, 10}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("SELL: %i", player_get_skills().trading),
-	     (Vector2){SCREEN_WIDTH-80, 26}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("ATK: %i", player_get_skills().attack),
-	     (Vector2){SCREEN_WIDTH-80, 42}, 16, 2, WHITE);
-  DrawTextEx(font, TextFormat("DEF: %i", player_get_skills().defense),
-	     (Vector2){SCREEN_WIDTH-80, 58}, 16, 2, WHITE);
-
-  DrawTextEx(font, "Q: MENU", (Vector2){10, SCREEN_HEIGHT - 26}, 16, 2, WHITE);
-
 }

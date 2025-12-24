@@ -14,12 +14,12 @@
 #include <e_tile_definitions.h>
 
 struct e_tile_def_tile_properties tile_defs[AMOUNT_OF_TILES] = {
-  {0, 0,  -1},
-  {1, 1,   1},
-  {2, 2,   2},
-  {3, 3,   2},
-  {4, 4,   2},
-  {5, 16, -1} 
+  {0, 0,  0, -1}, // air
+  {1, 1,  0,  1}, // stone
+  {2, 2,  1,  2}, // coal
+  {3, 3,  4,  2}, // copper
+  {4, 4,  2,  2}, // iron
+  {5, 16, 0, -1}  // unbreakable stone
 };
 
 struct e_tile_def_tile_properties e_tile_def_get_tile_properties(int tile) {

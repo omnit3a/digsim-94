@@ -9,6 +9,7 @@
 struct e_tile_def_tile_properties {
   int id;
   int atlas_offset;
+  int score_given;
   int health;
 };
 

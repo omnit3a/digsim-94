@@ -4,5 +4,6 @@
 void e_behaviour_handle_screens (int * current_screen, int * frame_counter);
 void e_behaviour_handle_player_movement (void);
 void e_behaviour_handle_player_actions (void);
+int e_behaviour_handle_menu (int current_screen);
 
 #endif
