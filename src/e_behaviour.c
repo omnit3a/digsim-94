@@ -20,8 +20,6 @@
 #include <e_tile_definitions.h>
 #include <player.h>
 
-//int high_score = 0;
-
 void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
   int new_current_screen = *current_screen;
   int new_frame_counter = *frame_counter;
@@ -31,7 +29,6 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
   switch (new_current_screen) {
   case LOGO:
     if (new_frame_counter >= 120){
-      //high_score = e_storage_load_value(STORAGE_POSITION_HIGH_SCORE);      
       new_current_screen = TITLE;
     }
     break;
