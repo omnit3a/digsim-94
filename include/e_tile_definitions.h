@@ -23,4 +23,5 @@ enum e_tile_def_ids {
 };
 
 struct e_tile_def_tile_properties e_tile_def_get_tile_properties(int tile);
+struct tile_info_s e_tile_def_to_tile_info(int tile_id);
 #endif

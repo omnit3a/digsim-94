@@ -111,8 +111,9 @@ void e_render_tile_from_atlas (Texture2D texture, int offset, int x_dest, int y_
 void e_render_gameplay (void) {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
 
+  // render ui
   DrawTextEx(font, TextFormat("HP: %i", player_get_info().health),
-	     (Vector2){10, 10}, 16, 2, WHITE);
+	     (Vector2){10, 10}, 16, 2, WHITE);  
   DrawTextEx(font, TextFormat("LVL: %i", player_get_info().lvl),
 	     (Vector2){10, 26}, 16, 2, WHITE);
   DrawTextEx(font, TextFormat("SCORE: %i", player_get_info().score),
@@ -148,7 +149,7 @@ void e_render_gameplay (void) {
 	break;
       }
       
-      int tile = e_world_get_tile_at_pos(view_x, view_y);
+      int tile = e_world_get_tile_at_pos(view_x, view_y).tile_id;
       tile = e_tile_def_get_tile_properties(tile).atlas_offset;
       
       e_render_tile_from_atlas(tile_atlas,
@@ -167,7 +168,7 @@ void e_render_gameplay (void) {
   }
 
   // render highlighted block 
-  if (e_world_get_tile_at_pos(x_pos+x_facing, y_pos+y_facing) > 0) {
+  if (e_world_get_tile_at_pos(x_pos+x_facing, y_pos+y_facing).tile_id > 0) {
     e_render_tile_from_atlas(player_sprite, 4, 4+x_facing, 3+y_facing);
   } else {
     e_render_tile_from_atlas(player_sprite, 5, 4+x_facing, 3+y_facing);

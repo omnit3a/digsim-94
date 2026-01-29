@@ -42,7 +42,7 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
     break;
 
   case GAMEPLAY:
-    if (IsKeyPressed(KEY_ESCAPE)) {
+    if (IsKeyPressed(KEY_Q)) {
       e_render_update_score();
       new_current_screen = MENU;
     }
@@ -98,7 +98,7 @@ void e_behaviour_handle_player_movement (void) {
     new_player_info.y_facing = 1;
   }
   
-  if (e_world_get_tile_at_pos(new_player_info.x_pos, new_player_info.y_pos) > 0 ||
+  if (e_world_get_tile_at_pos(new_player_info.x_pos, new_player_info.y_pos).tile_id > 0 ||
       IsKeyDown(KEY_LEFT_CONTROL)){
     new_player_info.x_pos = player_get_info().x_pos;
     new_player_info.y_pos = player_get_info().y_pos;
@@ -128,13 +128,21 @@ void e_behaviour_handle_player_actions (void) {
   struct player_info_s new_player_info = player_get_info();
   int facing_x_pos = new_player_info.x_pos + new_player_info.x_facing;
   int facing_y_pos = new_player_info.y_pos + new_player_info.y_facing;
-  int facing_tile = e_world_get_tile_at_pos(facing_x_pos, facing_y_pos);
-
-  bool facing_tile_indestructible = e_tile_def_get_tile_properties(facing_tile).health == -1;
+  struct tile_info_s facing_tile = e_world_get_tile_at_pos(facing_x_pos, facing_y_pos);
   
-  if (IsKeyPressed(KEY_PERIOD) && facing_tile > 0 && !facing_tile_indestructible) {
-    e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, 0);
-    new_player_info.score += e_tile_def_get_tile_properties(facing_tile).score_given;
+  bool facing_tile_indestructible = e_tile_def_get_tile_properties(facing_tile.tile_id).health == -1;
+  
+  if (IsKeyPressed(KEY_PERIOD) && facing_tile.tile_id > 0 && !facing_tile_indestructible) {
+    // take health away from tile based on player's mining skill
+    facing_tile.health -= player_get_skills().mining;
+    e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, facing_tile);
+
+    // if tile hp <= 0, destroy tile
+    if (facing_tile.health <= 0) {
+      struct tile_info_s new_facing_tile = {0, -1};
+      e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, new_facing_tile);
+      new_player_info.score += e_tile_def_get_tile_properties(facing_tile.tile_id).score_given;
+    }
   }
 
   player_set_info(new_player_info);
