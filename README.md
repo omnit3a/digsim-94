@@ -9,7 +9,7 @@ small mining game using raylib.
 
 ## building
 - `cmake -B .` to generate makefile<br>
-- `make` to compile. outputs `game`
+- `make` to compile. outputs `digsim-94`
 
 # running
 ## controls
