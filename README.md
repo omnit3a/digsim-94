@@ -13,6 +13,6 @@ small mining game using raylib.
 
 # running
 ## controls
-`arrow keys` move the player around<br>
-`left-ctrl + arrow keys` rotates the player to face the specified direction<br>
-`.` mines blocks
+`WASD` move the player around<br>
+`left-ctrl + WASD` rotates the player to face the specified direction<br>
+`left mouse button` or `right mouse button` mines blocks

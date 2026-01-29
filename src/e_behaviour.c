@@ -74,25 +74,25 @@ void e_behaviour_handle_screens (int * current_screen, int * frame_counter) {
 void e_behaviour_handle_player_movement (void) {
   struct player_info_s new_player_info = player_get_info();
   
-  if (IsKeyPressed(KEY_LEFT)) {
+  if (IsKeyPressed(KEY_A)) {
     new_player_info.x_pos--;
     new_player_info.x_facing = -1;
     new_player_info.y_facing = 0;
   }
   
-  if (IsKeyPressed(KEY_RIGHT)) {
+  if (IsKeyPressed(KEY_D)) {
     new_player_info.x_pos++;
     new_player_info.x_facing = 1;
     new_player_info.y_facing = 0;
   }
 
-  if (IsKeyPressed(KEY_UP)) {
+  if (IsKeyPressed(KEY_W)) {
     new_player_info.y_pos--;
     new_player_info.x_facing = 0;
     new_player_info.y_facing = -1;
   }
 
-  if (IsKeyPressed(KEY_DOWN)) {
+  if (IsKeyPressed(KEY_S)) {
     new_player_info.y_pos++;
     new_player_info.x_facing = 0;
     new_player_info.y_facing = 1;
@@ -131,8 +131,11 @@ void e_behaviour_handle_player_actions (void) {
   struct tile_info_s facing_tile = e_world_get_tile_at_pos(facing_x_pos, facing_y_pos);
   
   bool facing_tile_indestructible = e_tile_def_get_tile_properties(facing_tile.tile_id).health == -1;
+
+  bool mine_block_input_detected = IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
+                                  || IsMouseButtonPressed(MOUSE_BUTTON_RIGHT);
   
-  if (IsKeyPressed(KEY_PERIOD) && facing_tile.tile_id > 0 && !facing_tile_indestructible) {
+  if (mine_block_input_detected && facing_tile.tile_id > 0 && !facing_tile_indestructible) {
     // take health away from tile based on player's mining skill
     facing_tile.health -= player_get_skills().mining;
     e_world_set_tile_at_pos(facing_x_pos, facing_y_pos, facing_tile);
