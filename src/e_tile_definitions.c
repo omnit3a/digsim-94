@@ -13,13 +13,6 @@
 // internal headers
 #include <e_tile_definitions.h>
 
-enum tile_def_index_entry_e {
-  TD_ID = 0,
-  TD_ATLAS_OFFSET,
-  TD_SCORE_GIVEN,
-  TD_HEALTH
-};
-
 struct e_tile_def_tile_properties tile_defs[AMOUNT_OF_TILES] = {
   {0, 0,  0, -1}, // air
   {1, 1,  0,  1}, // stone
