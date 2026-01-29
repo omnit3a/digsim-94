@@ -13,6 +13,7 @@ CMakeUserPresets.json
 CPackConfig.cmake
 CPackSourceConfig.cmake
 digsim-94
+data
 
 # CLion
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
